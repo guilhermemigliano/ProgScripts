@@ -1,0 +1,23 @@
+#corpo {
+    margin: 30px 40px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.um{
+    background-color: #E040FB;
+}
+
+.dois{
+    background-color: #FFEB3B;
+}
+
+.tres{
+    background-color: #FF5722;
+}
+
+.um, .dois, .tres{
+    min-width: 300px;
+    flex: 1;
+}

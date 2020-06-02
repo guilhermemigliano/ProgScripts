@@ -1,0 +1,239 @@
+Atividades - Programação de Scripts
+
+---------------------------------------
+Atividade 1
+---------------------------------------
+//Exercício 1
+
+const reverse = string =>{
+    for(var i = 0; string.charAt(i) != ''; i++){
+    }
+
+    i--;
+
+    for(; i != -1; i--)
+    console.log(string.charAt(i));
+}
+
+reverse('123456789');
+
+//Exercício 2
+
+const reverse2 = string => console.log([...string].reverse().join());
+
+reverse2('Guilherme');
+
+//Exercício 3
+
+const reverse3 = string => console.log([...string].reduce((rev, char) => char + rev, ''));
+
+reverse3('Guilherme');
+
+//Exercício 4
+
+const array = new Array(10);
+
+array.fill(0);
+
+array.forEach(function(item, indice, array){
+    array[indice] = Math.floor(Math.random()*20);
+});
+
+array.forEach(function(item, indice, array){
+    console.log(array[indice]);
+});
+
+//Exercício 5
+
+const bd = nome => console.log('Bom dia ' + nome)
+
+---------------------------------------
+Atividade 2
+---------------------------------------
+
+//1) Qual é o motivo das chamadas do método print produzirem resultados distintos?
+
+// Arrow function não víncula this.
+
+//2) Fazer um array de objetos JSON (JavaScript Object Notation) para armazenar os dados a seguir. Observações:
+
+ let aluno = [
+     {
+         "nome": "Maria",
+         "idiomas": ["espanhol", "francês"],
+         "caracteristicas": {
+             peso: 62.5,
+             altura: 1.67
+         }
+     },
+     {
+        "nome": "Carlos",
+        "idiomas": ["inglês"],
+        "caracteristicas": {
+            altura: 1.8,
+            sexo: "M",
+            doador: true
+        }
+    },
+    {
+        "nome": "Rodrigo",
+        "idiomas": ["espanhol", "francês", "inglês"],
+        "caracteristicas": {
+            desportista: true,
+            voluntario: true
+        }
+    }
+ ];
+
+// 3) Codificar uma função que recebe como parâmetro o array do Exercício 2 e imprime no console os pares de key:value da propriedade características, assim como é mostrado ao lado.
+//    Observe que nem todos os elementos do array possui as mesmas propriedades.
+
+
+ let imprimirAluno = aluno =>{
+     for(i = 0; i < aluno.length; i++){
+         console.log(aluno[i].nome);
+         for(x in aluno[i].caracteristicas){
+             console.log(x + ":" + aluno[i].caracteristicas[x]);
+         }
+     }
+ }
+
+ imprimirAluno(aluno);
+
+ //4) Codificar a classe Pessoa usando a linguagem JavaScript. Observações:
+//• O método print deverá imprimir no console os valores dos atributos;
+//• Use a notação de Arrow Function no método print;
+//• Crie dois objetos do tipo Pessoa para testar a classe.
+
+class Pessoa {
+    constructor(nome, idade) {
+      this.nome = nome;
+      this.idade = idade;
+    }
+
+    print = () =>{
+        console.log(this.nome);
+        console.log(this.idade);
+    }    
+}
+
+const p1 = new Pessoa('Guilherme', 32);
+const p2 = new Pessoa('Felipe', 26);
+p1.print();
+p2.print();
+
+
+//5) Codificar as classes Pessoa e Cliente usando a linguagem JavaScript. Observações:
+//• O método print da subclasse deverá invocar o método da superclasse para imprimir os atributos nome e idade;
+//• Teste o seu código usando a notação de Arrow Function e usando a notação de função tradicional;
+//• Crie dois objetos do tipo Pessoa para testar a classe.
+
+class Cliente extends Pessoa{
+    constructor(nome, idade, telefone){
+        super(nome,idade);
+        this.telefone = telefone;
+
+    }
+
+    print(){
+        super.print();
+        //console.log(this.telefone);
+    };
+};
+
+
+
+const c1 = new Cliente('Maria', 32, 1234566);
+const c2 = new Cliente('Helena', 31, 1234567);
+c1.print();
+c2.print();
+
+---------------------------------------
+Atividade 3
+---------------------------------------
+
+//1) No código a seguir o objeto p possui uma Promise. Ao executar o código será impresso no console somente o texto ok.
+//Alterar o corpo da Promise para que o mesmo código passe a imprimir Boa tarde e Boa noite.
+
+console.log("----------------- EXERCICIO 1 ------------------");
+let p = new Promise( (x, y) => { 
+    if(true){ y()}
+    else x();
+});
+
+p.then(()=>{
+    console.log('Bom dia');
+}).catch(()=>{
+    console.log("Boa tarde");
+}).finally(()=>{
+    console.log('Boa noite');
+});
+
+//2) O problema da Promise é que não podemos passar parâmetros para o objeto. Completar o código a seguir usando o mesmo princípio do Exercício 1
+//e fazer a chamada da função saudacao para imprimir Bom dia e Boa noite.
+
+console.log("----------------- EXERCICIO 2 ------------------");
+function saudacao(hora){
+    return new Promise( (x, y) => {
+        if(hora>=12) {y();}
+        else{
+            x();
+        } 
+    });
+}
+
+saudacao(11).then(()=>{
+    console.log('Bom dia!');
+}).catch(()=>{
+    console.log('Boa tarde!');
+}).finally(()=>{
+    console.log('Boa noite!');
+})
+
+
+//3) Completar o código da Promise para que a chamada da função exibir() imprima no console um número aleatório no intervalo [30,50[.
+
+console.log("----------------- EXERCICIO 3 ------------------");
+function aleatorio(min, max){ return new Promise( (x, y) => {
+    let nro = Math.floor(Math.random() * (max-min) + min);
+    if(nro){
+        x(nro);
+    }
+    else{
+        y();
+    }
+ });
+}
+
+async function exibir(){
+    let a = await aleatorio(30,50);
+    console.log(a); 
+}
+
+exibir();
+
+console.log("----------------- EXERCICIO 4 ------------------");
+
+//4) Chamar a função random para imprimir na tela um valor aleatório no intervalo [0,20[. Observação: não alterar a função random.
+
+ const random = async max => Math.floor(Math.random() * max);
+
+async function exibir(){
+    let a = await random(20);
+    console.log(a);
+}
+
+exibir();
+
+console.log("----------------- EXERCICIO 5 ------------------");
+
+//5) Usando a função random, do Exercício 4, gerar dois números aleatórios no intervalo [0,20[ e imprimir na tela a soma deles. Observação: não alterar a função random.
+
+let soma = async ()=>{
+    let a = await random(20);
+    let b = await random(20);
+    console.log("a = " + a + " b = " + b)
+    console.log("soma = " + (a + b));
+}
+
+soma();
